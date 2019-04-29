@@ -35,6 +35,9 @@ class sv_human_time_diff extends init {
 
 		// Shortcodes
 		add_shortcode( $this->get_module_name(), array( $this, 'shortcode' ) );
+		
+		add_filter( 'get_comment_date',array($this, 'get_comment_date'), 10, 1 );
+		add_filter( 'get_the_date',array($this, 'get_the_date'), 10, 1 );
 	}
 
 	protected function load_settings(): sv_human_time_diff {
@@ -69,7 +72,7 @@ class sv_human_time_diff extends init {
 		if ( $settings['date_start'] ) {
 			$date_start = strtotime( $settings['date_start'] );
 		} else {
-			$date_start = get_post_time();
+			return false;
 		}
 
 		if ( $settings['date_end'] ) {
@@ -84,20 +87,18 @@ class sv_human_time_diff extends init {
 		$time_diff = round( ( $date_end - $date_start ) / ( 60 * 60 * 24 ) );
 
 		if ( $time_diff > $date_after ) {
-			$date = get_the_date();
+			$date = $settings['date_start'];
 		} else {
 			$date = human_time_diff( $date_start, $date_end );
-
-			switch ( get_locale() ) {
-				case 'de_DE':
-					$date = 'vor ' . $date;
-					break;
-				case 'en_US':
-					$date = $date . ' ago';
-					break;
-			}
+			$date = sprintf( __('%s ago', $this->get_module_name() ), $date );
 		}
 
 		return $date;
+	}
+	public function get_comment_date($date){
+		return $this->router(array('date_start' => $date));
+	}
+	public function get_the_date($date){
+		return $this->router(array('date_start' => $date));
 	}
 }

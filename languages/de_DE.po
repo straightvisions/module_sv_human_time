@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sv_human_time_diff\n"
-"POT-Creation-Date: 2019-04-27 13:19+0200\n"
-"PO-Revision-Date: 2019-04-27 13:19+0200\n"
+"POT-Creation-Date: 2019-04-29 17:21+0200\n"
+"PO-Revision-Date: 2019-04-29 17:21+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -40,6 +40,11 @@ msgid ""
 msgstr ""
 "Zeigt das Datum und die Uhrzeit im Standard-WordPress-Format an, wenn der "
 "Zeitunterschied höher ist als die gesetzten Tage."
+
+#: sv_human_time_diff.php:90
+#, php-format
+msgid "%s ago"
+msgstr "vor %s"
 
 #. Theme Name of the plugin/theme
 msgid "sv_human_time_diff"
