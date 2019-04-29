@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sv_human_time_diff\n"
-"POT-Creation-Date: 2019-04-29 17:21+0200\n"
-"PO-Revision-Date: 2019-04-29 17:21+0200\n"
+"POT-Creation-Date: 2019-04-29 19:41+0200\n"
+"PO-Revision-Date: 2019-04-29 19:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -33,15 +33,31 @@ msgstr ""
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: sv_human_time_diff.php:46
+#: sv_human_time_diff.php:49
+msgid "Enable for posts"
+msgstr "Ermöglicht diese Funktion für alle Beiträge"
+
+#: sv_human_time_diff.php:57
+msgid "Enable for comments"
+msgstr "Ermöglicht diese Funktion für alle Kommentare"
+
+#: sv_human_time_diff.php:65
+msgid "Show Date Format"
+msgstr "Datumsformat anzeigen"
+
+#: sv_human_time_diff.php:66
 msgid ""
 "Shows the date and time in the default WordPress format, when the time "
-"difference is higher than the set days."
+"difference is higher than the set days.<br>0 = never"
 msgstr ""
 "Zeigt das Datum und die Uhrzeit im Standard-WordPress-Format an, wenn der "
-"Zeitunterschied höher ist als die gesetzten Tage."
+"Zeitunterschied höher ist als die gesetzten Tage.<br>0 = nie"
 
-#: sv_human_time_diff.php:90
+#: sv_human_time_diff.php:92
+msgid "Starting date is needed!"
+msgstr "Startdatum ist erforderlich!"
+
+#: sv_human_time_diff.php:110
 #, php-format
 msgid "%s ago"
 msgstr "vor %s"
@@ -49,3 +65,9 @@ msgstr "vor %s"
 #. Theme Name of the plugin/theme
 msgid "sv_human_time_diff"
 msgstr "sv_human_time_diff"
+
+#~ msgid "Enables this feature for all posts."
+#~ msgstr "Ermöglicht diese Funktion für alle Beiträge."
+
+#~ msgid "Enables this feature for all comments."
+#~ msgstr "Ermöglicht diese Funktion für alle Kommentare."
