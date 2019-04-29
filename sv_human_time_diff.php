@@ -32,23 +32,40 @@ class sv_human_time_diff extends init {
 
 		// Load settings, register scripts and sidebars
 		$this->load_settings();
-
+		
+		// Actions Hooks & Filter
+		add_filter( 'get_comment_date', array( $this, 'get_comment_date' ), 10, 1 );
+		add_filter( 'get_the_date', array( $this, 'get_the_date' ), 10, 1 );
+		
 		// Shortcodes
 		add_shortcode( $this->get_module_name(), array( $this, 'shortcode' ) );
-		
-		add_filter( 'get_comment_date',array($this, 'get_comment_date'), 10, 1 );
-		add_filter( 'get_the_date',array($this, 'get_the_date'), 10, 1 );
 	}
 
 	protected function load_settings(): sv_human_time_diff {
+		$this->s['posts'] =
+			static::$settings
+				->create( $this )
+				->set_ID( 'posts' )
+				->set_title( __( 'Enable for posts', $this->get_module_name() ) )
+				->set_default_value( 1 )
+				->load_type( 'checkbox' );
+		
+		$this->s['comments'] =
+			static::$settings
+				->create( $this )
+				->set_ID( 'comments' )
+				->set_title( __( 'Enable for comments', $this->get_module_name() ) )
+				->set_default_value( 1 )
+				->load_type( 'checkbox' );
+		
 		$this->s['date_after'] =
 			static::$settings
 				->create( $this )
 				->set_ID( 'date_after' )
-				->set_title( 'Show Date Format' )
-				->set_description( __( 'Shows the date and time in the default WordPress format, when the time difference is higher than the set days.', $this->get_module_name() ) )
-				->set_default_value( 7 )
-				->set_min( 1 )
+				->set_title( __( 'Show Date Format', $this->get_module_name() ) )
+				->set_description( __( 'Shows the date and time in the default WordPress format, when the time difference is higher than the set days.<br>0 = never', $this->get_module_name() ) )
+				->set_default_value( 0 )
+				->set_min( 0 )
 				->load_type( 'number' );
 
 		return $this;
@@ -70,9 +87,9 @@ class sv_human_time_diff extends init {
 
 	protected function router( array $settings ): string {
 		if ( $settings['date_start'] ) {
-			$date_start = strtotime( $settings['date_start'] );
+			$date_start = $settings['date_start'];
 		} else {
-			return false;
+			return __( 'Starting date is needed!', $this->get_module_name() );
 		}
 
 		if ( $settings['date_end'] ) {
@@ -80,13 +97,13 @@ class sv_human_time_diff extends init {
 		} else {
 			$date_end   = current_time( 'timestamp' );
 		}
-
+		
 		$date_after = $settings['date_after'] ? $settings['date_after'] : $this->s['date_after']->run_type()->get_data();
 
 		// Time difference between post date and current date, in days
 		$time_diff = round( ( $date_end - $date_start ) / ( 60 * 60 * 24 ) );
 
-		if ( $time_diff > $date_after ) {
+		if ( $date_after > 0 && $time_diff > $date_after ) {
 			$date = $settings['date_start'];
 		} else {
 			$date = human_time_diff( $date_start, $date_end );
@@ -95,10 +112,20 @@ class sv_human_time_diff extends init {
 
 		return $date;
 	}
-	public function get_comment_date($date){
-		return $this->router(array('date_start' => $date));
+	
+	public function get_comment_date( $date ) {
+		if ( $this->s['comments']->run_type()->get_data() ) {
+			return $this->router( array( 'date_start' => get_comment_time() ) );
+		} else {
+			return $date;
+		}
 	}
-	public function get_the_date($date){
-		return $this->router(array('date_start' => $date));
+	
+	public function get_the_date( $date ) {
+		if ( $this->s['posts']->run_type()->get_data() ) {
+			return $this->router( array( 'date_start' => get_post_time() ) );
+		} else {
+			return $date;
+		}
 	}
 }
