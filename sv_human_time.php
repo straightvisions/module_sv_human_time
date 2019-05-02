@@ -11,7 +11,7 @@ namespace sv_100;
  * @license			See license.txt or https://straightvisions.com
  */
 
-class sv_human_time_diff extends init {
+class sv_human_time extends init {
 	public function __construct() {
 
 	}
@@ -21,11 +21,11 @@ class sv_human_time_diff extends init {
 		load_theme_textdomain( $this->get_module_name(), $this->get_path( 'languages' ) );
 
 		// Module Info
-		$this->set_module_title( 'SV Human Time Diff' );
-		$this->set_module_desc( __( 'This module converts dates and times to a human readable text, via the "[sv_human_time_diff]" shortcode.', $this->get_module_name() ) );
+		$this->set_module_title( 'SV Human Time' );
+		$this->set_module_desc( __( 'This module converts dates and times to a human readable text, via the "[sv_human_time]" shortcode.', $this->get_module_name() ) );
 
 		// Section Info
-		$this->set_section_title( 'Human Time Diff' );
+		$this->set_section_title( 'Human Time' );
 		$this->set_section_desc( __( 'Settings', $this->get_module_name() ) );
 		$this->set_section_type( 'settings' );
 		$this->get_root()->add_section( $this );
@@ -41,12 +41,12 @@ class sv_human_time_diff extends init {
 		add_shortcode( $this->get_module_name(), array( $this, 'shortcode' ) );
 	}
 
-	protected function load_settings(): sv_human_time_diff {
+	protected function load_settings(): sv_human_time {
 		$this->s['posts'] =
 			static::$settings
 				->create( $this )
 				->set_ID( 'posts' )
-				->set_title( __( 'Enable for posts', $this->get_module_name() ) )
+				->set_title( __( 'Enables relative date format for all posts', $this->get_module_name() ) )
 				->set_default_value( 1 )
 				->load_type( 'checkbox' );
 		
@@ -54,7 +54,7 @@ class sv_human_time_diff extends init {
 			static::$settings
 				->create( $this )
 				->set_ID( 'comments' )
-				->set_title( __( 'Enable for comments', $this->get_module_name() ) )
+				->set_title( __( 'Enables relative date format for all comments', $this->get_module_name() ) )
 				->set_default_value( 1 )
 				->load_type( 'checkbox' );
 		
