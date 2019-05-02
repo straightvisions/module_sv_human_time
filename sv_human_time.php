@@ -92,13 +92,13 @@ class sv_human_time extends init {
 			return __( 'Starting date is needed!', $this->get_module_name() );
 		}
 
-		if ( $settings['date_end'] ) {
+		if ( isset($settings['date_end']) && $settings['date_end'] ) {
 			$date_end   = strtotime( $settings['date_end'] );
 		} else {
 			$date_end   = current_time( 'timestamp' );
 		}
 		
-		$date_after = $settings['date_after'] ? $settings['date_after'] : $this->s['date_after']->run_type()->get_data();
+		$date_after = (isset($settings['date_after']) && $settings['date_after']) ? $settings['date_after'] : $this->s['date_after']->run_type()->get_data();
 
 		// Time difference between post date and current date, in days
 		$time_diff = round( ( $date_end - $date_start ) / ( 60 * 60 * 24 ) );
