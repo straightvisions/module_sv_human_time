@@ -115,7 +115,8 @@ class sv_human_time extends init {
 	
 	public function get_comment_date( $date ) {
 		if ( $this->s['comments']->run_type()->get_data() ) {
-			return $this->router( array( 'date_start' => get_comment_time() ) );
+			$formatted_date = $this->router( array( 'date_start' => get_comment_time() ) );
+			return ($formatted_date == get_comment_time()) ? $date : $formatted_date;
 		} else {
 			return $date;
 		}
@@ -123,7 +124,8 @@ class sv_human_time extends init {
 	
 	public function get_the_date( $date ) {
 		if ( $this->s['posts']->run_type()->get_data() ) {
-			return $this->router( array( 'date_start' => get_post_time() ) );
+			$formatted_date = $this->router( array( 'date_start' => get_post_time() ) );
+			return ($formatted_date == get_post_time()) ? $date : $formatted_date;
 		} else {
 			return $date;
 		}
