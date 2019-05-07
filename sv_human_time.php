@@ -34,8 +34,8 @@ class sv_human_time extends init {
 		$this->load_settings();
 		
 		// Actions Hooks & Filter
-		add_filter( 'get_comment_date', array( $this, 'get_comment_date' ), 10, 1 );
-		add_filter( 'get_the_date', array( $this, 'get_the_date' ), 10, 1 );
+		add_filter( 'get_comment_date', array( $this, 'get_comment_date' ), 10, 3 );
+		add_filter( 'get_the_date', array( $this, 'get_the_date' ), 10, 3 );
 		
 		// Shortcodes
 		add_shortcode( $this->get_module_name(), array( $this, 'shortcode' ) );
@@ -113,19 +113,19 @@ class sv_human_time extends init {
 		return $date;
 	}
 	
-	public function get_comment_date( $date ) {
+	public function get_comment_date( $date, $d, $comment ) {
 		if ( $this->s['comments']->run_type()->get_data() ) {
-			$formatted_date = $this->router( array( 'date_start' => get_comment_time() ) );
-			return ($formatted_date == get_comment_time()) ? $date : $formatted_date;
+			$formatted_date = $this->router( array( 'date_start' => $comment->comment_date ) );
+			return ($formatted_date == $comment->comment_date) ? $date : $formatted_date;
 		} else {
 			return $date;
 		}
 	}
 	
-	public function get_the_date( $date ) {
+	public function get_the_date( $date, $d, $post ) {
 		if ( $this->s['posts']->run_type()->get_data() ) {
-			$formatted_date = $this->router( array( 'date_start' => get_post_time() ) );
-			return ($formatted_date == get_post_time()) ? $date : $formatted_date;
+			$formatted_date = $this->router( array( 'date_start' => $post->post_date ) );
+			return ($formatted_date == $post->post_date) ? $date : $formatted_date;
 		} else {
 			return $date;
 		}
