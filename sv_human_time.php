@@ -18,15 +18,15 @@ class sv_human_time extends init {
 
 	public function init() {
 		// Translates the module
-		load_theme_textdomain( $this->get_module_name(), $this->get_path( 'languages' ) );
+		load_theme_textdomain( 'sv_human_time', $this->get_path( 'languages' ) );
 
 		// Module Info
 		$this->set_module_title( 'SV Human Time' );
-		$this->set_module_desc( __( 'This module converts dates and times to a human readable text, via the "[sv_human_time]" shortcode.', $this->get_module_name() ) );
+		$this->set_module_desc( __( 'This module converts dates and times to a human readable text, via the "[sv_human_time]" shortcode.', 'sv_human_time' ) );
 
 		// Section Info
 		$this->set_section_title( 'Human Time' );
-		$this->set_section_desc( __( 'Settings', $this->get_module_name() ) );
+		$this->set_section_desc( __( 'Settings', 'sv_human_time' ) );
 		$this->set_section_type( 'settings' );
 		$this->get_root()->add_section( $this );
 
@@ -46,7 +46,7 @@ class sv_human_time extends init {
 			static::$settings
 				->create( $this )
 				->set_ID( 'posts' )
-				->set_title( __( 'Enables relative date format for all posts', $this->get_module_name() ) )
+				->set_title( __( 'Enables relative date format for all posts', 'sv_human_time' ) )
 				->set_default_value( 1 )
 				->load_type( 'checkbox' );
 		
@@ -54,7 +54,7 @@ class sv_human_time extends init {
 			static::$settings
 				->create( $this )
 				->set_ID( 'comments' )
-				->set_title( __( 'Enables relative date format for all comments', $this->get_module_name() ) )
+				->set_title( __( 'Enables relative date format for all comments', 'sv_human_time' ) )
 				->set_default_value( 1 )
 				->load_type( 'checkbox' );
 		
@@ -62,8 +62,8 @@ class sv_human_time extends init {
 			static::$settings
 				->create( $this )
 				->set_ID( 'date_after' )
-				->set_title( __( 'Show Date Format', $this->get_module_name() ) )
-				->set_description( __( 'Shows the date and time in the default WordPress format, when the time difference is higher than the set days.<br>0 = never', $this->get_module_name() ) )
+				->set_title( __( 'Show Date Format', 'sv_human_time' ) )
+				->set_description( __( 'Shows the date and time in the default WordPress format, when the time difference is higher than the set days.<br>0 = never', 'sv_human_time' ) )
 				->set_default_value( 0 )
 				->set_min( 0 )
 				->load_type( 'number' );
@@ -89,7 +89,7 @@ class sv_human_time extends init {
 		if ( $settings['date_start'] ) {
 			$date_start = $settings['date_start'];
 		} else {
-			return __( 'Starting date is needed!', $this->get_module_name() );
+			return __( 'Starting date is needed!', 'sv_human_time' );
 		}
 
 		if ( isset($settings['date_end']) && $settings['date_end'] ) {
@@ -107,7 +107,7 @@ class sv_human_time extends init {
 			$date = $settings['date_start'];
 		} else {
 			$date = human_time_diff( $date_start, $date_end );
-			$date = sprintf( __('%s ago', $this->get_module_name() ), $date );
+			$date = sprintf( __('%s ago', 'sv_human_time' ), $date );
 		}
 
 		return $date;
