@@ -33,9 +33,6 @@ class sv_human_time extends init {
 		// Actions Hooks & Filter
 		add_filter( 'get_comment_date', array( $this, 'get_comment_date' ), 10, 3 );
 		add_filter( 'get_the_date', array( $this, 'get_the_date' ), 10, 3 );
-		
-		// Shortcodes
-		add_shortcode( $this->get_module_name(), array( $this, 'shortcode' ) );
 	}
 
 	protected function load_settings(): sv_human_time {
@@ -68,7 +65,7 @@ class sv_human_time extends init {
 		return $this;
 	}
 
-	public function shortcode( $settings, $content = '' ): string {
+	public function load( $settings = array() ): string {
 		$settings								= shortcode_atts(
 			array(
 				'date_start'				=> false,
