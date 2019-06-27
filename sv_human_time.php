@@ -1,10 +1,10 @@
 <?php
-namespace sv_100;
+namespace sv100;
 
 /**
  * @version         1.00
  * @author			straightvisions GmbH
- * @package			sv_100
+ * @package			sv100
  * @copyright		2017 straightvisions GmbH
  * @link			https://straightvisions.com
  * @since			1.0
@@ -19,11 +19,11 @@ class sv_human_time extends init {
 	public function init() {
 		// Module Info
 		$this->set_module_title( 'SV Human Time' );
-		$this->set_module_desc( __( 'This module converts dates and times to a human readable text, via the "[sv_human_time]" shortcode.', 'straightvisions-100' ) );
+		$this->set_module_desc( __( 'This module converts dates and times to a human readable text, via the "[sv_human_time]" shortcode.', 'sv100' ) );
 
 		// Section Info
 		$this->set_section_title( 'Human Time' );
-		$this->set_section_desc( __( 'Settings', 'straightvisions-100' ) );
+		$this->set_section_desc( __( 'Settings', 'sv100' ) );
 		$this->set_section_type( 'settings' );
 		$this->get_root()->add_section( $this );
 
@@ -40,7 +40,7 @@ class sv_human_time extends init {
 			static::$settings
 				->create( $this )
 				->set_ID( 'posts' )
-				->set_title( __( 'Enables relative date format for all posts', 'straightvisions-100' ) )
+				->set_title( __( 'Enables relative date format for all posts', 'sv100' ) )
 				->set_default_value( 1 )
 				->load_type( 'checkbox' );
 		
@@ -48,7 +48,7 @@ class sv_human_time extends init {
 			static::$settings
 				->create( $this )
 				->set_ID( 'comments' )
-				->set_title( __( 'Enables relative date format for all comments', 'straightvisions-100' ) )
+				->set_title( __( 'Enables relative date format for all comments', 'sv100' ) )
 				->set_default_value( 1 )
 				->load_type( 'checkbox' );
 		
@@ -56,8 +56,8 @@ class sv_human_time extends init {
 			static::$settings
 				->create( $this )
 				->set_ID( 'date_after' )
-				->set_title( __( 'Show Date Format', 'straightvisions-100' ) )
-				->set_description( __( 'Shows the date and time in the default WordPress format, when the time difference is higher than the set days.<br>0 = never', 'straightvisions-100' ) )
+				->set_title( __( 'Show Date Format', 'sv100' ) )
+				->set_description( __( 'Shows the date and time in the default WordPress format, when the time difference is higher than the set days.<br>0 = never', 'sv100' ) )
 				->set_default_value( 0 )
 				->set_min( 0 )
 				->load_type( 'number' );
@@ -83,7 +83,7 @@ class sv_human_time extends init {
 		if ( $settings['date_start'] ) {
 			$date_start = $settings['date_start'];
 		} else {
-			return __( 'Starting date is needed!', 'straightvisions-100' );
+			return __( 'Starting date is needed!', 'sv100' );
 		}
 
 		if ( isset($settings['date_end']) && $settings['date_end'] ) {
@@ -101,7 +101,7 @@ class sv_human_time extends init {
 			$date = $settings['date_start'];
 		} else {
 			$date = human_time_diff( $date_start, $date_end );
-			$date = sprintf( __('%s ago', 'straightvisions-100' ), $date );
+			$date = sprintf( __('%s ago', 'sv100' ), $date );
 		}
 
 		return $date;
