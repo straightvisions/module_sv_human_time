@@ -1,5 +1,5 @@
 <?php
-	namespace sv100;
+	namespace sv100_companion;
 	
 	/**
 	 * @version         4.000
@@ -11,16 +11,14 @@
 	 * @license			See license.txt or https://straightvisions.com
 	 */
 	
-	class sv_human_time extends init {
+	class sv_human_time extends modules {
 		public function init() {
-			// Module Info
-			$this->set_module_title( 'SV Human Time' );
-			$this->set_module_desc( __( 'This module converts dates and times to a human readable text, via the "[sv_human_time]" shortcode.', 'sv100' ) );
-	
 			// Section Info
-			$this->set_section_title( 'Human Time' );
-			$this->set_section_desc( __( 'Settings', 'sv100' ) );
-			$this->set_section_type( 'settings' );
+			$this->set_section_title( __('Relative Time and Dates', 'sv100_companion' ) )
+				->set_section_desc( __( 'Enable relative dateformats', 'sv100_companion' ) )
+				->set_section_type( 'settings' )
+				->set_section_template_path( $this->get_path( 'lib/modules/'.$this->get_module_name().'/lib/backend/tpl/settings.php' ) );
+			
 			$this->get_root()->add_section( $this );
 	
 			// Load settings, register scripts and sidebars
@@ -33,27 +31,24 @@
 	
 		protected function load_settings(): sv_human_time {
 			$this->s['posts'] =
-				static::$settings
-					->create( $this )
+				$this->get_setting()
 					->set_ID( 'posts' )
-					->set_title( __( 'Enables relative date format for all posts', 'sv100' ) )
+					->set_title( __( 'Enables relative date format for all posts', 'sv100_companion' ) )
 					->set_default_value( 1 )
 					->load_type( 'checkbox' );
 			
 			$this->s['comments'] =
-				static::$settings
-					->create( $this )
+				$this->get_setting()
 					->set_ID( 'comments' )
-					->set_title( __( 'Enables relative date format for all comments', 'sv100' ) )
+					->set_title( __( 'Enables relative date format for all comments', 'sv100_companion' ) )
 					->set_default_value( 1 )
 					->load_type( 'checkbox' );
 			
 			$this->s['date_after'] =
-				static::$settings
-					->create( $this )
+				$this->get_setting()
 					->set_ID( 'date_after' )
-					->set_title( __( 'Show Date Format', 'sv100' ) )
-					->set_description( __( 'Shows the date and time in the default WordPress format, when the time difference is higher than the set days.<br>0 = never', 'sv100' ) )
+					->set_title( __( 'Show Date Format', 'sv100_companion' ) )
+					->set_description( __( 'Shows the date and time in the default WordPress format, when the time difference is higher than the set days. 0 = never', 'sv100_companion' ) )
 					->set_default_value( 0 )
 					->set_min( 0 )
 					->load_type( 'number' );
@@ -79,7 +74,7 @@
 			if ( $settings['date_start'] ) {
 				$date_start = $settings['date_start'];
 			} else {
-				return __( 'Starting date is needed!', 'sv100' );
+				return __( 'Starting date is needed!', 'sv100_companion' );
 			}
 	
 			if ( isset($settings['date_end'] ) && $settings['date_end'] ) {
@@ -99,7 +94,7 @@
 				$date = $settings['date_start'];
 			} else {
 				$date = human_time_diff( $date_start, $date_end );
-				$date = sprintf( __( '%s ago', 'sv100' ), $date );
+				$date = sprintf( __( '%s ago', 'sv100_companion' ), $date );
 			}
 	
 			return $date;
