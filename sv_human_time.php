@@ -34,14 +34,12 @@
 				$this->get_setting()
 					->set_ID( 'posts' )
 					->set_title( __( 'Enables relative date format for all posts', 'sv100_companion' ) )
-					->set_default_value( 1 )
 					->load_type( 'checkbox' );
 			
 			$this->s['comments'] =
 				$this->get_setting()
 					->set_ID( 'comments' )
 					->set_title( __( 'Enables relative date format for all comments', 'sv100_companion' ) )
-					->set_default_value( 1 )
 					->load_type( 'checkbox' );
 			
 			$this->s['date_after'] =
