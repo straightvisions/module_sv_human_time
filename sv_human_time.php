@@ -17,7 +17,7 @@
 			$this->set_section_title( __('Relative Time and Dates', 'sv100_companion' ) )
 				->set_section_desc( __( 'Enable relative dateformats', 'sv100_companion' ) )
 				->set_section_type( 'settings' )
-				->set_section_template_path( $this->get_path( 'lib/modules/'.$this->get_module_name().'/lib/backend/tpl/settings.php' ) );
+				->set_section_template_path( $this->get_path( 'lib/backend/tpl/settings.php' ) );
 			
 			$this->get_root()->add_section( $this );
 	
