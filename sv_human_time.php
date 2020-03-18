@@ -77,7 +77,7 @@
 			
 			$date_after = ( isset( $settings['date_after'] ) && $settings['date_after'] )
 				? $settings['date_after']
-				: $this->get_setting( 'date_after' )->run_type()->get_data();
+				: $this->get_setting( 'date_after' )->get_data();
 	
 			// Time difference between post date and current date, in days
 			$time_diff = round( ( $date_end - $date_start ) / ( 60 * 60 * 24 ) );
@@ -93,7 +93,7 @@
 		}
 		
 		public function get_comment_date( $date, $d, $comment ) {
-			if ( $this->get_setting( 'comments' )->run_type()->get_data() ) {
+			if ( $this->get_setting( 'comments' )->get_data() ) {
 				$formatted_date = $this->router( array( 'date_start' => mysql2date( 'U', $comment->comment_date ) ) );
 				
 				return ( $formatted_date == mysql2date( 'U', $comment->comment_date ) ) ? $date : $formatted_date;
@@ -103,7 +103,7 @@
 		}
 		
 		public function get_the_date( $date, $d, $post ) {
-			if ( $this->get_setting( 'posts' )->run_type()->get_data() ) {
+			if ( $this->get_setting( 'posts' )->get_data() ) {
 				$formatted_date = $this->router( array( 'date_start' => mysql2date( 'U', $post->post_date ) ) );
 				
 				return ( $formatted_date == mysql2date( 'U', $post->post_date ) ) ? $date : $formatted_date;
