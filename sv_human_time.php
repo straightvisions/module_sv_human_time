@@ -111,4 +111,8 @@
 				return $date;
 			}
 		}
+
+		public function get_date( $date ) {
+			return $this->router( array( 'date_start' => $date ) );
+		}
 	}
